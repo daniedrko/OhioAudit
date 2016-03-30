@@ -1,0 +1,25 @@
+---
+title: "fakeersity map"
+author: "DKO"
+date: "November 12, 2015"
+output: html_document
+---
+
+```{r, echo=FALSE}
+library(leaflet)
+library(rgdal)
+library(magrittr)
+
+ohio <- readOGR("tl_2012_39_cousub.shp", layer = "tl_2012_39_cousub", verbose = F)
+univ <- read.csv("C:/Users/DKO/Desktop/R/audit/university-data.csv")
+
+pop <- paste("<b>", univ$University, "</b><br>", univ$Website, "<br>Records Granted: ", univ$Records.Granted, "<br>Records Denied: ", univ$Records.Denied, "<br>Records Obstructed: ", univ$Records.Obstructed, "<br>Referred to Legal Affairs: ", univ$Referred.to.Legal, "<br>Auditors asked for Identifying info: ", univ$ID.asked)
+
+leaflet(univ) %>%
+  addProviderTiles("OpenStreetMap.HOT") %>%
+  addMarkers(~INTPTLON, ~INTPTLAT, popup = pop)
+  
+
+```
+
+
